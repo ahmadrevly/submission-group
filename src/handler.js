@@ -70,7 +70,11 @@ const getAllBookHandler = (request, h) => {
   const response = h.response({
     status: "success",
     data: {
-      books,
+      books: books.map((book) => ({
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+      })),
     },
   });
   response.code(200);
@@ -82,7 +86,7 @@ const getBookByIdHandler = (request, h) => {
 
   const book = books.filter((n) => n.id === id)[0];
 
-  if (book !== undefined) {
+  if (book == undefined) {
     const response = h.response({
       status: "fail",
       message: "Buku tidak ditemukan",
