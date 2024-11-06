@@ -137,21 +137,7 @@ const editBookByIdHandler = (request, h) => {
     });
     response.code(400);
     return response;
-  } else if (index !== -1) {
-    books[index] = {
-      ...books[index],
-      name,
-      year,
-      author,
-      summary,
-      publisher,
-      pageCount,
-      readPage,
-      reading,
-      updatedAt,
-      finished,
-    };
-
+  } else if (index === -1) {
     const response = h.response({
       status: "fail",
       message: "Gagal memperbarui buku. Id tidak ditemukan",
@@ -159,7 +145,19 @@ const editBookByIdHandler = (request, h) => {
     response.code(404);
     return response;
   }
-
+  books[index] = {
+    ...books[index],
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
+    updatedAt,
+    finished,
+  };
   const response = h.response({
     status: "success",
     message: "Buku berhasil diperbarui",
